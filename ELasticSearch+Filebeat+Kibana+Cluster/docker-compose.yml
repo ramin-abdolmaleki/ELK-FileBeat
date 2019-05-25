@@ -43,7 +43,7 @@ services:
     container_name: elasticsearch3
     environment:
       - node.name=elasticsearch3
-      - cluster.name=docker-cluster2
+      - cluster.name=docker-cluster
       - http.port=9203
       - nodes=["elasticsearch1", "elasticsearch2 , elasticsearch3", "elasticsearch4"]
       - http.cors.enabled=true
@@ -63,7 +63,7 @@ services:
     environment:
       - nodes=["elasticsearch1", "elasticsearch2 , elasticsearch3", "elasticsearch4"]
       - node.name=elasticsearch4
-      - cluster.name=docker-cluster2
+      - cluster.name=docker-cluster
       - http.port=9204
       - http.cors.enabled=true
       - "node.master=false"

@@ -1,0 +1,17 @@
+setup.template.enabled: false
+
+filebeat.modules:
+- module: apache2
+  access:
+    enabled: true
+    var.paths:
+      - '/mnt/log/apache_logs'
+
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: true
+  reload.period: 10s
+
+
+output.elasticsearch:
+  hosts: ["elasticsearch1:9200" , "elasticsearch3:9203"]

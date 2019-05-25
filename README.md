@@ -6,7 +6,7 @@ You can run single node elasticsearch + Filebeat + kibana using files that insid
 In this folder we have : 
 1- A docker compose file which our nodes will run with this file , you can run this file using following command : 
 
-> sudo docker-compose -f docker-compose.yml up -d
+# sudo docker-compose -f docker-compose.yml up -d
 
 you can see node status using following command : 
 

@@ -1,0 +1,111 @@
+version: '3.7'
+services:
+  elasticsearch1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.2
+    container_name: elasticsearch1
+    environment:
+      - node.name=elasticsearch1
+      - cluster.name=docker-cluster
+      - http.port=9200
+      - nodes=["elasticsearch1", "elasticsearch2"]
+      - http.cors.enabled=true
+      - "node.master=true"
+      - http.cors.allow-origin=*
+      - "node.data=true"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    networks:
+      - elastic
+    ports:
+      - 9200:9200
+
+  elasticsearch2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.2
+    container_name: elasticsearch2
+    environment:
+      - nodes=["elasticsearch1", "elasticsearch2"]
+      - node.name=elasticsearch2
+      - cluster.name=docker-cluster
+      - http.port=9202
+      - http.cors.enabled=true
+      - "node.master=false"
+      - http.cors.allow-origin=*
+      - "discovery.zen.ping.unicast.hosts=elasticsearch1"
+      - "node.data=true"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    networks:
+      - elastic
+    ports:
+      - 9202:9202
+
+ 
+  elasticsearch3:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.2
+    container_name: elasticsearch3
+    environment:
+      - node.name=elasticsearch3
+      - cluster.name=docker-cluster-2
+      - http.port=9203
+      - nodes=["elasticsearch3", "elasticsearch4"]
+      - http.cors.enabled=true
+      - "node.master=true"
+      - http.cors.allow-origin=*
+      - "node.data=true"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    networks:
+      - elastic
+
+    ports:
+      - 9203:9203
+
+  elasticsearch4:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.2
+    container_name: elasticsearch4
+    environment:
+      - nodes=["elasticsearch3", "elasticsearch4"]
+      - node.name=elasticsearch4
+      - cluster.name=docker-cluster-2
+      - http.port=9204
+      - http.cors.enabled=true
+      - "node.master=false"
+      - http.cors.allow-origin=*
+      - "discovery.zen.ping.unicast.hosts=elasticsearch3"
+      - "node.data=true"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    networks:
+      - elastic
+    ports:
+      - 9204:9204
+
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.5.2
+    container_name: kibana
+    environment:
+      SERVER_NAME: localhost
+      ELASTICSEARCH_URL: http://elasticsearch1:9200/
+    ports:
+      - 5601:5601
+    networks:
+      - elastic
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:6.5.2
+
+    environment:
+      - setup.kibana.host=kibana:5601
+    ports:
+      - 9000:9000
+    volumes:
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./logfile/:/mnt/log:ro
+
+    networks:
+      - elastic
+
+networks:
+  elastic:
+
+configs:
+  filebeat_config:
+    file: filebeat/filebeat.yml

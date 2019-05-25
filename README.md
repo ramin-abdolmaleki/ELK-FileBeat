@@ -7,16 +7,20 @@ In this folder we have :
 1- A docker compose file which our nodes will run with this file , you can run this file using following command : 
 
 
- >sudo docker-compose -f docker-compose.yml up -d
+ > sudo docker-compose -f docker-compose.yml up -d
 
 
 you can see node status using following command : 
 
-sudo docker ps
+
+> sudo docker ps
+
 
 also you can remove all containers using following command :
 
-sudo docker container rm -f $(sudo docker ps -aq)
+
+> sudo docker container rm -f $(sudo docker ps -aq)
+
 
 2- logfile folder which contain an static log file (apache log) for indexing process
 
@@ -27,15 +31,21 @@ You can run 4 node elasticsearch + Filebeat + kibana using files that inside thi
 In this folder we have : 
 1- A docker compose file which our nodes will run with this file , you can run this file using following command : 
 
-sudo docker-compose -f docker-compose.yml up -d
+
+> sudo docker-compose -f docker-compose.yml up -d
+
 
 you can see node status using following command : 
 
-sudo docker ps
+
+> sudo docker ps
+
 
 also you can remove all containers using following command :
 
-sudo docker container rm -f $(sudo docker ps -aq)
+
+> sudo docker container rm -f $(sudo docker ps -aq)
+
 
 2- logfile folder which contain an static log file (apache log) for indexing process
 
@@ -46,15 +56,21 @@ You can run 4 node elasticsearch + Filebeat + kibana using files that inside thi
 In this folder we have : 
 1- A docker compose file which our nodes will run with this file , you can run this file using following command : 
 
+
 > sudo docker-compose -f docker-compose.yml up -d
+
 
 you can see node status using following command : 
 
-sudo docker ps
+
+> sudo docker ps
+
 
 also you can remove all containers using following command :
 
-sudo docker container rm -f $(sudo docker ps -aq)
+
+> sudo docker container rm -f $(sudo docker ps -aq)
+
 
 2- logfile folder which contain an static log file (apache log) for indexing process
 

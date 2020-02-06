@@ -1,5 +1,5 @@
 # ELK-FileBeat
-Run ELK Stack On Ducker With Docker Compose 
+Run ELK Stack On Docker With Docker Compose 
 
 # ElasticSearch+Filebeat+Kibana
 You can run single node elasticsearch + Filebeat + kibana using files that inside this folder
